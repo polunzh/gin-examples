@@ -17,7 +17,8 @@ func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloRe
 }
 
 func main() {
-	lis, err := net.Listen("tcp", ":50051")
+	const PORT string = ":50051"
+	lis, err := net.Listen("tcp", PORT)
 	if err != nil {
 		log.Fatalf("fail to listen: %v", err)
 	}
@@ -27,7 +28,7 @@ func main() {
 
 	reflection.Register(s)
 
-	if err := s.Serve(lis); err != nil {
+	if err = s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
 }
