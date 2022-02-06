@@ -3,14 +3,21 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 var db = make(map[string]string)
 
+func hello(c *gin.Context) {
+	c.String(http.StatusOK, strings.Join(c.HandlerNames(), "\n"))
+}
+
 func setupRouter() *gin.Engine {
 	r := gin.Default()
+
+	r.GET("/", hello)
 
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "pong")
